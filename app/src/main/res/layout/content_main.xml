@@ -11,14 +11,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="请先设置正确的STS鉴权服务器地址，否则以下服务无法直接使用。"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:text="@string/mainActivity_sts_note"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="11sp" />
+            android:textSize="15sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,19 +32,21 @@
 
             <TextView
                 android:id="@+id/textView"
-                android:layout_width="85dp"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:text="STS鉴权服务器:"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:text="@string/mainActivity_sts_des"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textSize="11sp" />
+                android:textSize="15sp" />
 
             <EditText
                 android:id="@+id/stsserver"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_weight="0.80"
                 android:hint="@string/stsserver"
-                android:textSize="11sp" />
+                android:textSize="15sp" />
         </LinearLayout>
 
 
@@ -51,39 +57,50 @@
 
             <TextView
                 android:id="@+id/textView2"
-                android:layout_width="70dp"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="上传Bucket:"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:text="@string/mainActivity_bucket_des"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textSize="11sp" />
+                android:textSize="15sp" />
 
             <EditText
                 android:id="@+id/bucketname"
-                android:layout_width="98dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="bucketname"
-                android:textSize="11sp" />
+                android:hint="@string/mainActivity_bucket_placeholder"
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/textView3"
-                android:layout_width="30dp"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:text=" 区域:"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:text="@string/mainActivity_region_des"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textSize="11sp" />
+                android:textSize="15sp" />
 
             <Spinner
                 android:id="@+id/region"
                 android:layout_width="94dp"
                 android:layout_height="35dp"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:entries="@array/bucketregion" />
 
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
             <Button
                 android:id="@+id/setting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
                 android:layout_gravity="right"
-                android:text="设置" />
+                android:text="@string/mainActivity_setting" />
         </LinearLayout>
 
         <ImageView
