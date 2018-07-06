@@ -1,5 +1,6 @@
 package com.alibaba.sdk.android;
 
+import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
 import com.alibaba.sdk.android.oss.model.HeadObjectRequest;
 import com.alibaba.sdk.android.oss.model.HeadObjectResult;
 import com.alibaba.sdk.android.oss.model.ImagePersistRequest;
@@ -13,27 +14,28 @@ import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 public class ImagePersistTest extends BaseTestCase {
     public static final String JPG_OBJECT_KEY = "JPG_OBJECT_KEY";
     public static final String persist2Obj = "persis2Obj";
-
-
-    private String imgPath = OSSTestConfig.FILE_DIR + "shilan.jpg";
+    private static final String objectName = "shilan.jpg";
 
     @Override
     void initTestData() throws Exception {
-        PutObjectRequest putImg = new PutObjectRequest(mBucketName,
-                JPG_OBJECT_KEY, imgPath);
-        oss.putObject(putImg);
+        OSSTestConfig.initDemoFile(objectName);
     }
 
 
     public void testImagePersist() throws Exception {
-        ImagePersistRequest request = new ImagePersistRequest(mBucketName, JPG_OBJECT_KEY, mBucketName, persist2Obj, "resize,w_100");
         try {
+            PutObjectRequest putObjectRequest = new PutObjectRequest(mBucketName, JPG_OBJECT_KEY,
+                    OSSTestConfig.FILE_DIR + objectName);
+            OSSTestConfig.TestPutCallback putCallback = new OSSTestConfig.TestPutCallback();
+            OSSAsyncTask task = oss.asyncPutObject(putObjectRequest, putCallback);
+            task.waitUntilFinished();
+
+            ImagePersistRequest request = new ImagePersistRequest(mBucketName, JPG_OBJECT_KEY, mBucketName, persist2Obj, "resize,w_100");
             ImagePersistResult result = oss.imagePersist(request);
+            assertEquals(200, result.getStatusCode());
 
-            HeadObjectRequest head = new HeadObjectRequest(mBucketName, persist2Obj);
-
-            HeadObjectResult headResult = oss.headObject(head);
-
+            HeadObjectRequest headRequest = new HeadObjectRequest(mBucketName, persist2Obj);
+            HeadObjectResult headResult = oss.headObject(headRequest);
 
             assertNotNull(headResult.getMetadata().getContentType());
             assertEquals(200, headResult.getStatusCode());
